@@ -2,8 +2,6 @@
 # vim: ft=yaml
 ---
 
-{%- set py_ver_repr = salt['pillar.get']('salt:py_ver', '') %}
-
 {%- set osrelease = salt['grains.get']('osrelease', '') %}
 {%- set opensuse_repo_suffix = 'Leap_' ~ osrelease if salt['grains.get']('osfinger', '') == 'Leap-15' else 'Tumbleweed' %}
 {%- set salt_repo = salt['pillar.get']('salt:repo', 'https://packages.broadcom.com/artifactory') %}
@@ -97,22 +95,6 @@ Alpine:
   pygit2: py2-pygit2
   libgit2: libgit2
 
-FreeBSD:
-  rootgroup: wheel
-  salt_master: {{ py_ver_repr or 'py27' }}-salt
-  salt_minion: {{ py_ver_repr or 'py27' }}-salt
-  salt_syndic: {{ py_ver_repr or 'py27' }}-salt
-  salt_cloud: {{ py_ver_repr or 'py27' }}-salt
-  salt_api: {{ py_ver_repr or 'py27' }}-salt
-  salt_ssh: {{ py_ver_repr or 'py27' }}-salt
-  python_git: {{ py_ver_repr or 'py27' }}-GitPython
-  pygit2: {{ py_ver_repr or 'py27' }}-pygit2
-  config_path: /usr/local/etc/salt
-  minion_service: salt_minion
-  master_service: salt_master
-  api_service: salt_api
-  syndic_service: salt_syndic
-
 OpenBSD:
   salt_master: salt
   salt_minion: salt
@@ -124,12 +106,6 @@ OpenBSD:
   minion_service: salt_minion
   master_service: salt_master
   python_git: py-GitPython
-
-Windows:
-  salt_minion: salt-minion{{ '-' ~ py_ver_repr if py_ver_repr else '' }}
-  config_path: 'C:\salt\conf'
-  minion_service: salt-minion
-  rootuser: {{ rootuser | d('') }}
 
 MacOS:
   salt_master: saltstack

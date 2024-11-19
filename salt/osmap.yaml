@@ -31,24 +31,6 @@ Raspbian:
   pkgrepo: 'deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.pgp arch=armhf] {{ salt_repo }}/saltproject-deb stable main'
   pkgrepo_keyring: '{{ salt_repo_key_url }}'
 
-SmartOS:
-  salt_master: salt
-  salt_minion: salt
-  salt_syndic: salt
-  salt_cloud: salt
-  salt_api: salt
-  salt_ssh: salt
-  minion_service: 'salt:minion'
-  master_service: 'salt:master'
-  api_service: 'salt:api'
-  python_dulwich: {{ py_ver_repr or 'py27' }}{{ '-dulwich' }}
-  gitfs:
-    dulwich:
-      install_from_source: false
-  config_path: /opt/local/etc/salt
-  master:
-    gitfs_provider: dulwich
-
 MacOS:
   minion_service: com.saltstack.salt.minion
   master_service: com.saltstack.salt.master
